@@ -1,0 +1,59 @@
+create database webdb13;
+use webdb13;
+CREATE TABLE users1 (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL,
+    mobile VARCHAR(20) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    role ENUM('admin', 'user') NOT NULL DEFAULT 'user',
+    approved TINYINT(1) DEFAULT 0
+);
+CREATE TABLE services (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150),
+    category ENUM('Shelter','Food','Healthcare','Counselling','Employment'),
+    address TEXT,
+    latitude DOUBLE,
+    longitude DOUBLE,
+    contact VARCHAR(20),
+    capacity INT,
+    available INT,
+    added_by VARCHAR(50),
+    verified TINYINT DEFAULT 0,
+    timings VARCHAR(100),
+    status ENUM('Active','Closed') DEFAULT 'Active'
+);
+
+
+CREATE TABLE issue_reports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    service_id INT,
+    issue_type VARCHAR(100),
+    description TEXT,
+    status ENUM('Pending','Resolved') DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE user_queries (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    query TEXT,
+    admin_reply TEXT,
+    status ENUM('Pending','Replied') DEFAULT 'Pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE ratings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    service_id INT,
+    rating INT CHECK (rating BETWEEN 1 AND 5),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+
+Select * from users1;
+Select * from services;
